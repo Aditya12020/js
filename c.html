@@ -1,0 +1,867 @@
+<!-- /*Question 1: Build a Holy Grail Layout with CSS Grid
+Category: Layout & Grid
+Task :
+Implement a classic 3-column website layout consisting of a full-width header, full-width footer, left sidebar,
+main content area, and right sidebar using CSS Grid named grid areas.
+Constraints & Requirements:
+Must automatically stack sidebars and content on screens smaller than 768px using media queries. -->
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Holy Grail Layout</title>
+<style>
+.container {
+    display: grid;
+    min-height: 100vh;
+    gap: 10px;
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-areas:
+        "header header header"
+        "left main right"
+        "footer footer footer";
+}
+
+header { grid-area: header; background: lightblue; }
+.left { grid-area: left; background: lightgreen; }
+main { grid-area: main; background: lightyellow; }
+.right { grid-area: right; background: pink; }
+footer { grid-area: footer; background: lightgray; }
+
+header, aside, main, footer { padding: 15px; }
+
+@media (max-width: 767px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "left"
+            "main"
+            "right"
+            "footer";
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>Header</header>
+    <aside class="left">Left Sidebar</aside>
+    <main>Main Content</main>
+    <aside class="right">Right Sidebar</aside>
+    <footer>Footer</footer>
+</div>
+
+</body>
+</html>
+```
+
+
+
+
+
+
+<!-- Question 2: Create an Expandable FAQ Accordion Widget
+Category: Interactivity & UI
+Task :
+Design an accordion component with multiple collapsible sections where clicking a header smoothly reveals
+or conceals the answer body.
+Constraints & Requirements:
+Use HTML `<details>` and `<summary>` elements with custom styling and smooth transition animations. -->
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>FAQ Accordion</title>
+<style>
+body { font-family: Arial; background: #eee; }
+
+details {
+    background: white;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.answer {
+    padding: 10px;
+    animation: show 0.3s ease;
+}
+</style>
+</head>
+<body>
+
+<h2>FAQ Accordion</h2>
+
+<details>
+    <summary>What is HTML?</summary>
+    <div class="answer">HTML structures web pages.</div>
+</details>
+
+<details>
+    <summary>What is CSS?</summary>
+    <div class="answer">CSS styles web pages.</div>
+</details>
+
+<details>
+    <summary>What is JavaScript?</summary>
+    <div class="answer">JavaScript adds interactivity.</div>
+</details>
+
+</body>
+</html>
+
+
+
+
+<!-- Question 3: Floating Label Form Input Effect
+Category: Forms & UI
+Task :
+Build a modern text input field where the placeholder text acts as a label that smoothly animates upward into
+a floating border position when the input receives focus or contains text.
+Constraints & Requirements:
+Achieve using pure CSS pseudo-classes like `:placeholder-shown` and `:focus` without any JavaScript. -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Floating Label</title>
+<style>
+body {
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+}
+
+.form {
+    background: white;
+    padding : 25px;
+    width : 250px;
+}
+
+.box {
+    position: relative;
+    margin: 30px 0;
+}
+
+input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid gray;
+    outline: none;
+}
+
+label {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    transition: 0.3s;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -15px;
+    color: blue;
+    font-size: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: blue;
+    color: white;
+    border: none;
+}
+</style>
+</head>
+<body>
+
+<div class="form">
+    <h2>Login Form</h2>
+
+    <div class="box">
+        <input type="text" placeholder=" " required>
+        <label>Username</label>
+    </div>
+
+    <div class="box">
+        <input type="email" placeholder=" " required>
+        <label>Email</label>
+    </div>
+
+    <button>Login</button>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- Question 4: CSS-Only Dropdown Navigation Bar
+Category: Navigation
+Task :
+Create a horizontal desktop navigation bar where hovering over a menu item reveals a nested dropdown
+sub-menu with a clean fade-in and slide-down transition.
+Constraints & Requirements:
+Ensure keyboard accessibility by supporting `:focus-within`. No JS allowed. -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dropdown Menu</title>
+<style>
+body { margin: 0; font-family: Arial; }
+
+.menu {
+    display: flex;
+    background: #222;
+   
+}
+
+.menu li { position: relative; }
+
+a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+a:hover, a:focus { background: #007bff; }
+
+.dropdown {
+    position: absolute;
+    background: #333;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
+
+.dropdown a { padding: 12px; }
+
+.menu li:hover .dropdown,
+.menu li:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media(max-width: 600px) {
+    .menu { flex-direction: column; }
+    .dropdown { position: static; }
+}
+</style>
+</head>
+<body>
+
+<ul class="menu">
+    <li><a href="#">Home</a></li>
+    <li>
+        <a href="#">Services ▾</a>
+        <ul class="dropdown">
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Development</a></li>
+            <li><a href="#">SEO</a></li>
+        </ul>
+    </li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+
+</body>
+</html>
+
+
+
+
+<!-- Question 5: Pinterest-Style Masonry Image Gallery
+Category: Layout & Grid
+Task :
+Design a responsive image gallery where items of varying vertical heights pack together tightly without
+vertical gaps, resembling a masonry wall layout.
+Constraints & Requirements:
+Use CSS Multi-column layout (`column-count`) or CSS Grid masonry tracks with fallback. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masonry Gallery</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+}
+
+.gallery {
+    columns: 4 200px;
+    column-gap: 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 500px) {
+    .gallery {
+        columns: 2;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Masonry Image Gallery</h1>
+
+<div class="gallery">
+    <img src="https://picsum.photos/id/10/300/400" alt="Nature 1">
+    <img src="https://picsum.photos/id/11/300/250" alt="Nature 2">
+    <img src="https://picsum.photos/id/12/300/350" alt="Nature 3">
+    <img src="https://picsum.photos/id/13/300/200" alt="Nature 4">
+    <img src="https://picsum.photos/id/14/300/450" alt="Nature 5">
+    <img src="https://picsum.photos/id/15/300/300" alt="Nature 6">
+    <img src="https://picsum.photos/id/16/300/380" alt="Nature 7">
+    <img src="https://picsum.photos/id/17/300/240" alt="Nature 8">
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- Question 6: Neumorphic Soft UI Calculator Interface
+Category: Visual Styling
+Task :
+Style a functional-looking pocket calculator keypad and display screen using Neumorphism (soft UI),
+featuring soft dual box-shadows that simulate raised and depressed physical plastic buttons.
+Constraints & Requirements:
+Use CSS custom properties for shadow blur, color offset, and background tones. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Neumorphic Calculator</title>
+<style>
+:root {
+    --bg: #e0e5ec;
+    --light: white;
+    --dark: #a3b1c6;
+    --blur: 10px;
+    --offset: 5px;
+}
+body {
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
+.calculator {
+    background: var(--bg);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 16px var(--dark),
+               -8px -8px 16px var(--light);
+}
+input {
+    width: 95%;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: right;
+    font-size: 22px;
+    border: none;
+    background: var(--bg);
+    box-shadow: inset 3px 3px 6px var(--dark),
+                inset -3px -3px 6px var(--light);
+}
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+button {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--bg);
+    box-shadow: 5px 5px 10px var(--dark),
+               -5px -5px 10px var(--light);
+}
+button:active {
+    box-shadow: inset 3px 3px 6px var(--dark);
+}
+</style>
+</head>
+<body>
+
+<div class="calculator">
+<h2>Calculator</h2>
+<input id="d" value="0" readonly>
+
+<div class="buttons">
+<button onclick="clearD()">C</button>
+<button onclick="del()">DEL</button>
+<button onclick="add('/')">/</button>
+<button onclick="add('*')">*</button>
+
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('-')">-</button>
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('+')">+</button>
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('.')">.</button>
+
+<button onclick="add('0')">0</button>
+<button onclick="calc()" style="grid-column:span 3">=</button>
+</div>
+</div>
+
+<script>
+let d = document.getElementById("d");
+
+function add(v) {
+    if(d.value == "0" || d.value == "Error")
+        d.value = "";
+    d.value += v;
+}
+
+function clearD() {
+    d.value = "0";
+}
+
+function del() {
+    d.value = d.value.slice(0,-1) || "0";
+}
+
+function calc() {
+    try {
+        d.value = eval(d.value);
+        if(!isFinite(d.value)) d.value = "Error";
+    }
+    catch {
+        d.value = "Error";
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+<!-- Question 7: Reusable Tooltips with CSS Triangles
+Category: UI Components
+Task :
+Build a system of hover tooltips that can be positioned on any side (top, right, bottom, left) of an element,
+complete with a crisp directional arrow pointer.
+Constraints & Requirements:
+Implement directional arrows using pseudo-elements (`::before`/`::after`) and CSS borders or `clip-path`. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSS Tooltip</title>
+<style>
+body {
+    text-align: center;
+    font-family: Arial;
+    padding: 100px;
+    background: #eee;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 40px;
+    background: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 6px;
+    opacity : 0;
+    
+    
+}
+
+/* Position */
+.top::after {
+    bottom: 100%;
+    left: 0;
+}
+
+.bottom::after {
+    top: 100%;
+    left: 0;
+}
+
+.left::after {
+    right: 100%;
+    top: 0;
+}
+
+.right::after {
+    left: 100%;
+    top: 0;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+</head>
+<body>
+
+<h2>CSS Tooltip</h2>
+
+<div class="tooltip top" data-tooltip="Top Tooltip">Top</div>
+<div class="tooltip bottom" data-tooltip="Bottom Tooltip">Bottom</div>
+<div class="tooltip left" data-tooltip="Left Tooltip">Left</div>
+<div class="tooltip right" data-tooltip="Right Tooltip">Right</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- Question 8: Responsive Card Grid with Strict Aspect Ratios
+Category: Layout & Flexbox
+Task :
+Create a responsive e-commerce product card grid where all product image containers maintain a precise 4:3
+aspect ratio regardless of screen width.
+Constraints & Requirements:
+Use the modern CSS `aspect-ratio` property and `object-fit: cover` on images. -->
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Cards</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ccc;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+.price {
+    color: blue;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+@media(max-width: 800px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 500px) {
+    .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Our Products</h1>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://picsum.photos/id/20/400/300">
+<h3>Travel Bag</h3>
+<p>Stylish travel bag.</p>
+<p class="price">₹999</p>
+<button onclick="alert('Added to Cart')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/id/21/400/300">
+<h3>Camera</h3>
+<p>Capture moments.</p>
+<p class="price">₹4999</p>
+<button onclick="alert('Added to Cart')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/id/22/400/300">
+<h3>Watch</h3>
+<p>Stylish watch.</p>
+<p class="price">₹1499</p>
+<button onclick="alert('Added to Cart')">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/id/23/400/300">
+<h3>Headphones</h3>
+<p>Quality music.</p>
+<p class="price">₹1999</p>
+<button onclick="alert('Added to Cart')">Add to Cart</button>
+</div>
+
+</div>
+
+</body>
+</html>
+```
+
+
+
+
+
+
+
+<!-- Question 9: CSS Loading Spinner and Skeleton Screen
+Category: Animations & Loading
+Task :
+Design two distinct loading indicators: an elegant dual-ring spinning loader and a shimmering placeholder
+skeleton card simulating data loading.
+Constraints & Requirements:
+Use CSS `@keyframes` animations and a sliding `linear-gradient` for the shimmer reflection effect. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Loading Effects</title>
+<style>
+body {
+    text-align: center;
+    font-family: Arial;
+    background: #eee;
+}
+
+/* Spinner */
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 30px auto;
+    border: 5px solid #ddd;
+    border-top: 5px solid blue;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Skeleton */
+.card {
+    width: 280px;
+    padding: 15px;
+    margin: 20px auto;
+    background: white;
+}
+
+.skeleton {
+    height: 20px;
+    margin: 12px 0;
+    background: linear-gradient(90deg, #eee, #bbb, #eee);
+    background-size: 200%;
+    animation: load 1.5s infinite;
+}
+
+.image { height: 120px; }
+.title { width: 70%; }
+
+@keyframes load {
+    to { background-position: 200% 0; }
+}
+</style>
+</head>
+<body>
+
+<h2>Loading Spinner</h2>
+<div class="spinner"></div>
+
+<h2>Skeleton Screen</h2>
+<div class="card">
+    <div class="skeleton image"></div>
+    <div class="skeleton title"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- Question 10: Sticky Header with Shrink-on-Scroll Effect
+Category: Scroll Animations
+Task :
+Build a top navigation bar that remains sticky as the user scrolls down the page, while smoothly shrinking its
+vertical padding and logo font size.
+Constraints & Requirements:
+Implement using CSS Scroll-driven animations (`animation-timeline: scroll()`) or standard sticky positioning
+with responsive style checks.*/ -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sticky Header</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    animation: shrink linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 200px;
+}
+
+.logo {
+    font-size: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+@keyframes shrink {
+    to {
+        padding: 8px;
+    }
+}
+
+section {
+    height: 100vh;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">My Website</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="home"><h1>Home</h1></section>
+<section id="about"><h1>About</h1></section>
+<section id="contact"><h1>Contact</h1></section>
+
+</body>
+</html>
